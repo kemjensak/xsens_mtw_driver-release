@@ -298,11 +298,11 @@ struct XsSocket
 
 	/*! \brief Allocate memory for a socket */
 	inline void* operator new(size_t)
-#ifdef _MSC_VER
-		throw(...)
-#else
-		throw(std::bad_alloc)
-#endif
+// #ifdef _MSC_VER
+// 		throw(...)
+// #else
+// 		throw(std::bad_alloc)
+// #endif
 	{
 		XsSocket *s = XsSocket_allocate();
 		if (!s)

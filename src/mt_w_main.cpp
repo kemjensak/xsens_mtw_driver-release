@@ -356,7 +356,8 @@ int main(int argc, char *argv[])
 						{
 							sensor_msgs::msg::Imu imu_msg;
 
-							imu_msg.header.frame_id = "imu_" + mtwDeviceIds[i].toString().toStdString();
+							// imu_msg.header.frame_id = "imu_" + mtwDeviceIds[i].toString().toStdString();
+							imu_msg.header.frame_id = "world";
 
 							imu_msg.linear_acceleration.x = packet->calibratedAcceleration().value(0);	// [m/s²]
 							imu_msg.linear_acceleration.y = packet->calibratedAcceleration().value(1);	// [m/s²]
@@ -374,7 +375,8 @@ int main(int argc, char *argv[])
 							imu_msg.orientation.w = packet->orientationQuaternion().w();				// unit quaternion
 							imu_msg.orientation_covariance[0] = -1;
 
-							imu_msg.header.stamp.nanosec=(rclcpp::Clock().now().nanoseconds() - beginning.nanoseconds());
+							imu_msg.header.stamp = rclcpp::Clock().now();
+							// imu_msg.header.stamp.nanosec=(rclcpp::Clock().now().nanoseconds() - beginning.nanoseconds());
 
 							imu_pubs[i]->publish(imu_msg);
 						}
